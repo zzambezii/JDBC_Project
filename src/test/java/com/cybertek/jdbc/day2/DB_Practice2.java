@@ -9,15 +9,23 @@ public class DB_Practice2 {
 
         // print out all data from Jobs Table
         DB_Utility.createConnection();
-        ResultSet rs = DB_Utility.runQuery("SELECT * FROM JOBS");
+        ResultSet rs = DB_Utility.runQuery("SELECT * FROM REGIONS");
 
 
         // get the first row data  | without knowing the column names
         int colCount = DB_Utility.getColumnCNT() ;
-        rs.first() ; // moving to the first row
-        for (int i = 1; i <= colCount ; i++) {
-            System.out.print(  rs.getString( i )  + "\t" );
+        // in order to get whole result cursor must be at before first location !
+        while(rs.next() == true){ // row iteration
+
+            for (int i = 1; i <= colCount ; i++) { // column iteration
+                System.out.print(  rs.getString( i )  + "\t" );
+            }
+            System.out.println(); /// adding a blank line for next line
+
         }
+
+
+
 
 
 

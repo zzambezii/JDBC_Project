@@ -8,6 +8,36 @@ public class DB_Utility {
      private static  ResultSet rs ;
 
      /*
+     * a method to display all the data in the result set
+     *
+     * */
+     public static void displayAllData(){
+
+         // get the first row data  | without knowing the column names
+         int colCount = DB_Utility.getColumnCNT() ;
+         // in order to get whole result cursor must be at before first location !
+
+         try {
+
+             while (rs.next() == true) { // row iteration
+
+                 for (int i = 1; i <= colCount; i++) { // column iteration
+                     System.out.print(rs.getString(i) + "\t");
+                 }
+                 System.out.println(); /// adding a blank line for next line
+             }
+
+
+         }catch(SQLException e){
+             System.out.println("ERROR WHILE GETTING ALL DATA");
+             e.printStackTrace();
+         }
+
+     }
+
+
+
+     /*
      * a method to get the column count of the current ResultSet
      *
      *   getColumnCNT()
