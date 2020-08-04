@@ -11,7 +11,7 @@ public class DB_Practice3 {
 
 
         DB_Utility.createConnection();
-        ResultSet rs = DB_Utility.runQuery("SELECT * FROM EMPLOYEES") ;
+        ResultSet rs = DB_Utility.runQuery("SELECT * FROM COUNTRIES") ;
         rs.next();
         // STORE FIRST ROW DATA AS A MAP<String,String>
         // the key of the map is column name , value of the map is the column data
@@ -25,12 +25,15 @@ public class DB_Practice3 {
         ResultSetMetaData rsmd = rs.getMetaData();
         for (int i = 1; i <= rsmd.getColumnCount();  i++) {
 //            System.out.println( rsmd.getColumnName(i)   );
-            rowMap.put(rsmd.getColumnName(i),   rs.getString(i) );
+            String columnName = rsmd.getColumnName(i);
+            String columnValue = rs.getString(i) ;
+            rowMap.put(columnName ,  columnValue  );
         }
         System.out.println("rowMap = " + rowMap);
 
+        System.out.println("Country name is " +  rowMap.get("COUNTRY_NAME")  );
 
-
+        DB_Utility.destroy();
 
     }
 
