@@ -21,9 +21,9 @@ public class DB_Utility {
              ResultSetMetaData rsmd = rs.getMetaData();
              colCount = rsmd.getColumnCount() ;
 
-         } catch (SQLException throwables) {
+         } catch (SQLException e) {
              System.out.println("ERROR WHILE COUNTING THE COLUMNS");
-             throwables.printStackTrace();
+             e.printStackTrace();
          }
 
         return colCount ;
@@ -44,9 +44,9 @@ public class DB_Utility {
         try {
             conn = DriverManager.getConnection(connectionStr, username, password);
             System.out.println("CONNECTION SUCCESSFUL");
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             System.out.println("CONNECTION HAS FAILED!");
-            throwables.printStackTrace();
+            e.printStackTrace();
         }
 
     }
@@ -61,8 +61,8 @@ public class DB_Utility {
             Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs =  stmnt.executeQuery(query) ;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return  rs ;
