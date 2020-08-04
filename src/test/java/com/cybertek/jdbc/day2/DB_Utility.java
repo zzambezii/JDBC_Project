@@ -38,7 +38,7 @@ public class DB_Utility {
         try{
 
             ResultSetMetaData rsmd = rs.getMetaData();
-            for (int colNum = 1; colNum <= getRowCount() ; colNum++) {
+            for (int colNum = 1; colNum <= getColumnCNT() ; colNum++) {
                 String colName = rsmd.getColumnName( colNum );
                 String colValue= rs.getString( colNum ) ;
                 rowMap.put(colName, colValue);
