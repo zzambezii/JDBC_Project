@@ -19,7 +19,7 @@ public class DB_Utility {
 
          try {
              // in order to start from beginning , we should be at beforefirst location
-             rs.beforeFirst();
+             rs.beforeFirst(); // this is for below loop to work
              while (rs.next() == true) { // row iteration
 
                  for (int i = 1; i <= colCount; i++) { // column iteration
@@ -29,7 +29,7 @@ public class DB_Utility {
              }
              // now the cursor is at after last location
              // move it back to before first location so we can have no issue calling the method again
-             rs.beforeFirst();
+             rs.beforeFirst(); // this is for next method that might need to be at before first location
 
          }catch(SQLException e){
              System.out.println("ERROR WHILE GETTING ALL DATA");
