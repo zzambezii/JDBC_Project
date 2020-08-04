@@ -21,8 +21,17 @@ public class DB_Utility {
      */
     public static String getColumnDataAtRow (int rowNum , int columnIndex){
 
+        String result = "" ;
+        try {
+            rs.absolute( rowNum ) ;
+            result = rs.getString( columnIndex ) ;
 
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE getColumnDataAtRow ");
+            e.printStackTrace();
+        }
 
+        return result ;
     }
 
 
