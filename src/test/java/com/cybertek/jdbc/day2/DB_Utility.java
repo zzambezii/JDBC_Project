@@ -1,6 +1,7 @@
 package com.cybertek.jdbc.day2;
 
 import java.sql.*;
+import java.util.*;
 
 public class DB_Utility {
     // adding static field so we can access in all static methods
@@ -61,7 +62,25 @@ public class DB_Utility {
     }
 
 
+    // getting the entire row as List<String>
+    public static List<String> getRowDataAsList(int rowNum){
 
+        List<String> rowDataList = new ArrayList<>();
+        // how to move to that Row with rowNum
+        try {
+            rs.absolute(rowNum);
+            // iterate over each and every column and add the valie to the list
+            for (int i = 1; i <=  getColumnCNT() ; i++) {
+                rowDataList.add(    rs.getString(i)    );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE getRowDataAsList ");
+            e.printStackTrace();
+        }
+
+        return rowDataList;
+    }
 
 
     /*

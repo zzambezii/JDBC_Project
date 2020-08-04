@@ -22,6 +22,8 @@ public class DB_Practice2 {
         System.out.println(DB_Utility.getColumnDataAtRow(3, 2));
         System.out.println(DB_Utility.getColumnDataAtRow(3, "REGION_NAME"));
 
+        System.out.println(DB_Utility.getRowDataAsList(4) );
+
 
     }
 
