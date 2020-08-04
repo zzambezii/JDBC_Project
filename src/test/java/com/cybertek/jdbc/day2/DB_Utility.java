@@ -16,8 +16,22 @@ public class DB_Utility {
      */
     public static List<String> getColumnDataAsList(int columnIndex){
 
+        List<String> columnDataLst = new ArrayList<>();
+        try {
+                rs.beforeFirst();  // moving the cursor to before first location
 
+                while(rs.next() ){
+                    // getting the data from that column and adding to the the list
+                  columnDataLst.add(  rs.getString(columnIndex)  );
 
+                }
+                rs.beforeFirst();  // moving the cursor to before first location after we are done
+        } catch (SQLException throwables) {
+            System.out.println("ERROR WHILE getColumnDataAsList ");
+            throwables.printStackTrace();
+        }
+
+        return columnDataLst;
     }
 
 
