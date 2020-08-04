@@ -9,11 +9,47 @@ public class DB_Utility {
     private static ResultSet rs;
 
 
+    /*
+     * a static method to get the ResultSet object
+     * with valid connection by executing query
+     * */
+    public static ResultSet runQuery(String query) {
+
+        try {
+            Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            rs = stmnt.executeQuery(query);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
+
     /**
      * We want to store certian row data as a map
      * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
      */
+    public static Map<String,String> getRowMap( int rowNum ){
 
+        Map<String,String> rowMap = new HashMap<>();
+        try{
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            for (int colNum = 1; colNum <= getRowCount() ; colNum++) {
+                String colName = rsmd.getColumnName( colNum );
+                String colValue= rs.getString( colNum ) ;
+                rowMap.put(colName, colValue);
+            }
+
+        }catch (SQLException e){
+            System.out.println("ERRROR AT ROW MAP FUNCTION");
+        }
+
+        return rowMap;
+    }
 
 
     /**
@@ -141,8 +177,8 @@ public class DB_Utility {
         try {
             rs.absolute(rowNum);
             // iterate over each and every column and add the valie to the list
-            for (int i = 1; i <=  getColumnCNT() ; i++) {
-                rowDataList.add(    rs.getString(i)    );
+            for (int colNum = 1; colNum <=  getColumnCNT() ; colNum++) {
+                rowDataList.add(    rs.getString( colNum)    );
             }
             //moving the cursor back to before first location just in case
             rs.beforeFirst();
@@ -253,23 +289,7 @@ public class DB_Utility {
 
     }
 
-    /*
-     * a static method to get the ResultSet object
-     * with valid connection by executing query
-     * */
-    public static ResultSet runQuery(String query) {
 
-        try {
-            Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                    ResultSet.CONCUR_READ_ONLY);
-            rs = stmnt.executeQuery(query);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return rs;
-    }
 
 }
 
