@@ -6,17 +6,44 @@ import java.util.*;
 public class DB_Utility {
     // adding static field so we can access in all static methods
     private static Connection conn;
-    private static ResultSet rs;
+    private static Statement stmnt;
+    private static ResultSet rs ;
 
 
     /*
+     * a static method to create connection
+     * with valid url and username password
+     * */
+    public static void createConnection() {
+
+        String connectionStr = "jdbc:oracle:thin:@52.71.242.164:1521:XE";
+        String username = "hr";
+        String password = "hr";
+
+        try {
+            conn = DriverManager.getConnection(connectionStr, username, password);
+            System.out.println("CONNECTION SUCCESSFUL");
+        } catch (SQLException e) {
+            System.out.println("CONNECTION HAS FAILED!");
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*
+     * */
+
+    /**
      * a static method to get the ResultSet object
      * with valid connection by executing query
-     * */
+     * @param query
+     * @return ResultSet object that contain the result just in cases needed outside the class
+     */
     public static ResultSet runQuery(String query) {
 
         try {
-            Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+            stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
             rs = stmnt.executeQuery(query);
 
@@ -27,28 +54,25 @@ public class DB_Utility {
         return rs;
     }
 
-
     /**
-     * We want to store certian row data as a map
-     * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
+     * cleaning up the resources
      */
-    public static Map<String,String> getRowMap( int rowNum ){
+    public static void destroy(){
 
-        Map<String,String> rowMap = new HashMap<>();
         try{
-
-            ResultSetMetaData rsmd = rs.getMetaData();
-            for (int colNum = 1; colNum <= getColumnCNT() ; colNum++) {
-                String colName = rsmd.getColumnName( colNum );
-                String colValue= rs.getString( colNum ) ;
-                rowMap.put(colName, colValue);
+            if(rs!=null){
+                rs.close();
             }
-
-        }catch (SQLException e){
-            System.out.println("ERRROR AT ROW MAP FUNCTION");
+            if(stmnt!=null){
+                rs.close();
+            }
+            if(conn!=null){
+                rs.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        return rowMap;
     }
 
 
@@ -61,16 +85,16 @@ public class DB_Utility {
 
         List<String> columnDataLst = new ArrayList<>();
         try {
-                rs.beforeFirst();  // moving the cursor to before first location
+            rs.beforeFirst();  // moving the cursor to before first location
 
-                while(rs.next() ){
+            while(rs.next() ){
 
-                    String data =  rs.getString(columnIndex) ;
-                    // getting the data from that column and adding to the the list
-                  columnDataLst.add( data  );
+                String data =  rs.getString(columnIndex) ;
+                // getting the data from that column and adding to the the list
+                columnDataLst.add( data  );
 
-                }
-                rs.beforeFirst();  // moving the cursor to before first location after we are done
+            }
+            rs.beforeFirst();  // moving the cursor to before first location after we are done
         } catch (SQLException throwables) {
             System.out.println("ERROR WHILE getColumnDataAsList ");
             throwables.printStackTrace();
@@ -78,8 +102,6 @@ public class DB_Utility {
 
         return columnDataLst;
     }
-
-
 
     /**
      *
@@ -106,6 +128,47 @@ public class DB_Utility {
         }
 
         return columnDataLst;
+    }
+
+
+    /**
+     * We want to store certian row data as a map
+     * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
+     */
+    public static Map<String,String> getRowMap( int rowNum ){
+
+        Map<String,String> rowMap = new HashMap<>();
+        try{
+
+            rs.absolute(rowNum);
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            for (int colNum = 1; colNum <= getColumnCNT() ; colNum++) {
+                String colName = rsmd.getColumnName( colNum );
+                String colValue= rs.getString( colNum ) ;
+                rowMap.put(colName, colValue);
+            }
+            rs.beforeFirst();
+
+        }catch (SQLException e){
+            System.out.println("ERRROR AT ROW MAP FUNCTION");
+        }
+
+        return rowMap;
+    }
+
+    /**
+     *
+     * @return The entire resultset as List of Row Map
+     */
+    public static List<Map<String,String> > getAllDataAsListOfMap(){
+
+        List<Map<String,String> > rowMapList = new ArrayList<>();
+        for (int i = 0; i < getRowCount(); i++) {
+            rowMapList.add(   getRowMap(i)    ) ;
+        }
+        return rowMapList ;
+
     }
 
 
@@ -162,6 +225,49 @@ public class DB_Utility {
         return result ;
     }
 
+    /**
+     * Get the row count of the resultSet
+     * @return the row number of the resultset given
+     */
+    public static int getRowCount(){
+
+        int rowCount = 0 ;
+
+        try {
+            rs.last(); // move to last row
+            rowCount = rs.getRow(); // get the row number and assign it to rowCount
+            // moving back the cursor to before first location just in case
+            rs.beforeFirst();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR WHILE GETTING ROW COUNT");
+        }
+        return rowCount ;
+    }
+
+    /*
+     * a method to get the column count of the current ResultSet
+     *
+     *   getColumnCNT()
+     *
+     * */
+    public static int getColumnCNT() {
+
+        int colCount = 0;
+
+        try {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            colCount = rsmd.getColumnCount();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE COUNTING THE COLUMNS");
+            e.printStackTrace();
+        }
+
+        return colCount;
+    }
+
 
     // getting the entire row as List<String>
 
@@ -191,26 +297,7 @@ public class DB_Utility {
         return rowDataList;
     }
 
-    /**
-     * Get the row count of the resultSet
-     * @return the row number of the resultset given
-     */
-    public static int getRowCount(){
 
-        int rowCount = 0 ;
-
-        try {
-            rs.last(); // move to last row
-            rowCount = rs.getRow(); // get the row number and assign it to rowCount
-            // moving back the cursor to before first location just in case
-            rs.beforeFirst();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("ERROR WHILE GETTING ROW COUNT");
-        }
-        return rowCount ;
-    }
 
 
 
@@ -246,48 +333,9 @@ public class DB_Utility {
     }
 
 
-    /*
-     * a method to get the column count of the current ResultSet
-     *
-     *   getColumnCNT()
-     *
-     * */
-    public static int getColumnCNT() {
-
-        int colCount = 0;
-
-        try {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            colCount = rsmd.getColumnCount();
-
-        } catch (SQLException e) {
-            System.out.println("ERROR WHILE COUNTING THE COLUMNS");
-            e.printStackTrace();
-        }
-
-        return colCount;
-    }
 
 
-    /*
-     * a static method to create connection
-     * with valid url and username password
-     * */
-    public static void createConnection() {
 
-        String connectionStr = "jdbc:oracle:thin:@52.71.242.164:1521:XE";
-        String username = "hr";
-        String password = "hr";
-
-        try {
-            conn = DriverManager.getConnection(connectionStr, username, password);
-            System.out.println("CONNECTION SUCCESSFUL");
-        } catch (SQLException e) {
-            System.out.println("CONNECTION HAS FAILED!");
-            e.printStackTrace();
-        }
-
-    }
 
 
 
