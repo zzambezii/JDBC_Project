@@ -26,6 +26,8 @@ public class DB_Practice2 {
         System.out.println(DB_Utility.getRowDataAsList(4) );
 
         System.out.println( DB_Utility.getColumnDataAsList(2) );
+        System.out.println( DB_Utility.getColumnDataAsList("FIRST_NAME") );
+
 
 
     }

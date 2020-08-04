@@ -10,6 +10,13 @@ public class DB_Utility {
 
 
     /**
+     * We want to store certian row data as a map
+     * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
+     */
+
+
+
+    /**
      *
      * @param columnIndex the column you want to get a list out of
      * @return List of String that contains entire column data from 1st row to last row
