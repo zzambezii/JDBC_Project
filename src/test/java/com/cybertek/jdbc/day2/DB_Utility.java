@@ -90,18 +90,23 @@ public class DB_Utility {
         return rowDataList;
     }
 
+    /**
+     *
+     * @return the row number of the resultset
+     */
     public static int getRowCount(){
 
         int rowCount = 0 ;
 
         try {
-            rs.last();
-            rowCount = rs.getRow();
+            rs.last(); // move to last row
+            rowCount = rs.getRow(); // get the row number and assign it to rowCount
             // moving back the cursor to before first location just in case
             rs.beforeFirst();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR WHILE GETTING ROW COUNT");
         }
         return rowCount ;
     }
