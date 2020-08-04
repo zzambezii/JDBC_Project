@@ -9,6 +9,20 @@ public class DB_Utility {
     private static ResultSet rs;
 
 
+    /**
+     *
+     * @param columnIndex the column you want to get a list out of
+     * @return List of String that contains entire column data from 1st row to last row
+     */
+    public static List<String> getColumnDataAsList(int columnIndex){
+
+
+
+    }
+
+
+
+
     /*
     * Getting single column cell value at certain row
     * row 2 column 3  -->> the data
