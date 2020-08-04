@@ -21,8 +21,10 @@ public class DB_Utility {
                 rs.beforeFirst();  // moving the cursor to before first location
 
                 while(rs.next() ){
+
+                    String data =  rs.getString(columnIndex) ;
                     // getting the data from that column and adding to the the list
-                  columnDataLst.add(  rs.getString(columnIndex)  );
+                  columnDataLst.add( data  );
 
                 }
                 rs.beforeFirst();  // moving the cursor to before first location after we are done
@@ -34,6 +36,34 @@ public class DB_Utility {
         return columnDataLst;
     }
 
+
+
+    /**
+     *
+     * @param columnName the column you want to get a list out of
+     * @return List of String that contains entire column data from the column name specified
+     */
+    public static List<String> getColumnDataAsList(String columnName){
+
+        List<String> columnDataLst = new ArrayList<>();
+        try {
+            rs.beforeFirst();  // moving the cursor to before first location
+
+            while(rs.next() ){
+
+                String data =  rs.getString(columnName) ;
+                // getting the data from that column and adding to the the list
+                columnDataLst.add( data  );
+
+            }
+            rs.beforeFirst();  // moving the cursor to before first location after we are done
+        } catch (SQLException throwables) {
+            System.out.println("ERROR WHILE getColumnDataAsList ");
+            throwables.printStackTrace();
+        }
+
+        return columnDataLst;
+    }
 
 
 

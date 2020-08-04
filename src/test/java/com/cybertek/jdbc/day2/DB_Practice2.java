@@ -25,6 +25,8 @@ public class DB_Practice2 {
         DB_Utility.runQuery("SELECT * FROM EMPLOYEES") ;
         System.out.println(DB_Utility.getRowDataAsList(4) );
 
+        System.out.println( DB_Utility.getColumnDataAsList(2) );
+
 
     }
 
