@@ -20,6 +20,7 @@ public class DB_Practice2 {
         DB_Utility.displayAllData();
 
         System.out.println(DB_Utility.getColumnDataAtRow(3, 2));
+        System.out.println(DB_Utility.getColumnDataAtRow(3, "REGION_NAME"));
 
 
     }

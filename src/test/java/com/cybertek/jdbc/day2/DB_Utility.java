@@ -20,7 +20,9 @@ public class DB_Utility {
      * @return the data in String
      */
     public static String getColumnDataAtRow (int rowNum , int columnIndex){
-
+        // take home tasks
+        // imporve this method and check for valid rowNum and columnIndex
+        // if invalid return emptyString
         String result = "" ;
         try {
             rs.absolute( rowNum ) ;
@@ -33,6 +35,31 @@ public class DB_Utility {
 
         return result ;
     }
+
+
+    /**
+     *
+     * @param rowNum
+     * @param columnName
+     * @return the data at that row with that column name
+     */
+    public static String getColumnDataAtRow (int rowNum , String columnName){
+        // take home tasks
+        // imporve this method and check for valid rowNum and columnIndex
+        // if invalid return emptyString
+        String result = "" ;
+        try {
+            rs.absolute( rowNum ) ;
+            result = rs.getString( columnName ) ;
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE getColumnDataAtRow ");
+            e.printStackTrace();
+        }
+
+        return result ;
+    }
+
 
 
 
