@@ -92,7 +92,7 @@ public class DB_Utility {
 
     /**
      * Get the row count of the resultSet
-     * @return the row number of the resultset
+     * @return the row number of the resultset given
      */
     public static int getRowCount(){
 
