@@ -24,8 +24,12 @@ public class DB_UtilityMethodCalls {
 //                                    + DB_Utility.getColumnDataAtRow(3,2) );
 //        System.out.println("Getting 3rd row , JOB_TITLE column data \n"
 //                                    + DB_Utility.getColumnDataAtRow(3,"JOB_TITLE") );
-//        System.out.println("Getter the data at 3rd row as Map : \n"
+//        System.out.println("Getting the data at 3rd row as Map : \n"
 //                                    + DB_Utility.getRowMap(3) );
+        System.out.println("Getting all the data as list of row Map : \n"
+                                    + DB_Utility.getAllDataAsListOfMap() );
+
+
         DB_Utility.destroy();
 
     }

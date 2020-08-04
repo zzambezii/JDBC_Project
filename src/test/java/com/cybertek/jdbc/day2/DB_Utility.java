@@ -95,9 +95,9 @@ public class DB_Utility {
 
             }
             rs.beforeFirst();  // moving the cursor to before first location after we are done
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             System.out.println("ERROR WHILE getColumnDataAsList ");
-            throwables.printStackTrace();
+            e.printStackTrace();
         }
 
         return columnDataLst;
@@ -122,9 +122,9 @@ public class DB_Utility {
 
             }
             rs.beforeFirst();  // moving the cursor to before first location after we are done
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             System.out.println("ERROR WHILE getColumnDataAsList ");
-            throwables.printStackTrace();
+            e.printStackTrace();
         }
 
         return columnDataLst;
@@ -164,7 +164,7 @@ public class DB_Utility {
     public static List<Map<String,String> > getAllDataAsListOfMap(){
 
         List<Map<String,String> > rowMapList = new ArrayList<>();
-        for (int i = 0; i < getRowCount(); i++) {
+        for (int i = 1; i <= getRowCount(); i++) {
             rowMapList.add(   getRowMap(i)    ) ;
         }
         return rowMapList ;
