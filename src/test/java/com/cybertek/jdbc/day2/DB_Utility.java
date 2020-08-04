@@ -63,6 +63,12 @@ public class DB_Utility {
 
 
     // getting the entire row as List<String>
+
+    /**
+     *
+     * @param rowNum the row number you want the list from
+     * @return List of String that contains the row data
+     */
     public static List<String> getRowDataAsList(int rowNum){
 
         List<String> rowDataList = new ArrayList<>();
@@ -73,6 +79,8 @@ public class DB_Utility {
             for (int i = 1; i <=  getColumnCNT() ; i++) {
                 rowDataList.add(    rs.getString(i)    );
             }
+            //moving the cursor back to before first location just in case
+            rs.beforeFirst();
 
         } catch (SQLException e) {
             System.out.println("ERROR WHILE getRowDataAsList ");
@@ -81,6 +89,23 @@ public class DB_Utility {
 
         return rowDataList;
     }
+
+    public static int getRowCount(){
+
+        int rowCount = 0 ;
+
+        try {
+            rs.last();
+            rowCount = rs.getRow();
+            // moving back the cursor to before first location just in case
+            rs.beforeFirst();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return rowCount ;
+    }
+
 
 
     /*
