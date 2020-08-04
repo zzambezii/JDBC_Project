@@ -5,6 +5,23 @@ import java.sql.*;
 public class DB_Utility {
     // adding static field so we can access in all static methods
      private static Connection conn ;
+     private static  ResultSet rs ;
+    /*
+     * a static method to get the ResultSet object
+     * with valid connection by executing query
+     * */
+    public static ResultSet runQuery(String query){
+
+        try {
+            Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs =  stmnt.executeQuery(query) ;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return  rs ;
+    }
 
     /*
     * a static method to create connection
@@ -25,21 +42,7 @@ public class DB_Utility {
         }
 
     }
-    /*
-     * a static method to get the ResultSet object
-     * with valid connection by executing query
-     * */
-     public static ResultSet runQuery(String Query){
 
-         try {
-             Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-         } catch (SQLException throwables) {
-             throwables.printStackTrace();
-         }
-
-
-     }
 
 
 
