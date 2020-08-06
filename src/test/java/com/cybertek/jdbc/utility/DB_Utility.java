@@ -32,7 +32,11 @@ public class DB_Utility {
     }
 
     public static void createConnection(String env){
-
+        // add validation to avoid invalid input
+        // because we currently only have 2 env : test , dev
+        // or add some condition for invalid env
+        //  to directly get the information as database.url , database.username, database.password
+        // without any env
         System.out.println("You are in "+env+" environment");
         String connectionStr = ConfigurationReader.getProperty(env+".database.url");
         String username = ConfigurationReader.getProperty(env+".database.username");
