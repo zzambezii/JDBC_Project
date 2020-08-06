@@ -1,4 +1,4 @@
-package com.cybertek.jdbc.day2;
+package com.cybertek.jdbc.utility;
 
 import java.sql.*;
 import java.util.*;
@@ -27,6 +27,27 @@ public class DB_Utility {
             System.out.println("CONNECTION HAS FAILED!");
             e.printStackTrace();
         }
+
+    }
+
+
+    /**
+     *  Overload createConnection method to accept url, username, password
+     *     * so we can provide those information for different database
+     * @param url  The connection String that used to connect to the database
+     * @param username the username of database
+     * @param password the password of database
+     */
+    public static void createConnection(String url, String username, String password){
+
+            try{
+
+                conn = DriverManager.getConnection(url,username,password) ;
+
+            }catch(SQLException e){
+                System.out.println("ERROR WHILE CONNECTING WITH PARAMETERS");
+            }
+
 
     }
 
