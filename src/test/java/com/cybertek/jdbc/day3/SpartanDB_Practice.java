@@ -14,7 +14,18 @@ public class SpartanDB_Practice {
         DB_Utility.createConnection(url,"SP","SP");
 
 
-
+//            Run query "SELECT * FROM SPARTANS"
+        DB_Utility.runQuery("SELECT * FROM SPARTANS");
+//            1. Display all data in console
+//            2. Print column count
+//            3. Print row count
+//            4. Print out 3rd row data as a list
+//            5. Print out 2nd column data as a list
+//            6, Print out Name column data as a list
+//            7, Print out 4th row as a Map
+//            8, Print out the data at row 5, column 1
+//            9, Print out the data at row 53, phone column
+//            10. Print out all the data as List of Map
 
 
 
