@@ -1,6 +1,7 @@
 package com.cybertek.jdbc.day3;
 
 import com.cybertek.jdbc.utility.DB_Utility;
+import static com.cybertek.jdbc.utility.DB_Utility.*;
 
 public class SpartanDB_Practice {
 
@@ -15,8 +16,9 @@ public class SpartanDB_Practice {
 
 
 //            Run query "SELECT * FROM SPARTANS"
-        DB_Utility.runQuery("SELECT * FROM SPARTANS");
+        runQuery("SELECT * FROM SPARTANS");
 //            1. Display all data in console
+        displayAllData();
 //            2. Print column count
 //            3. Print row count
 //            4. Print out 3rd row data as a list
