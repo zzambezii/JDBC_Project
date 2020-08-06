@@ -10,9 +10,10 @@ public class SpartanDB_Practice {
         // please create a package called utility
         // and move your DB_Utility under that package
 
-        String url = "jdbc:oracle:thin:@52.71.242.164:1521:XE";
-
-        DB_Utility.createConnection(url,"SP","SP");
+        //String url = "jdbc:oracle:thin:@52.71.242.164:1521:XE";
+        //DB_Utility.createConnection(url,"SP","SP");
+//        DB_Utility.createConnection();
+        DB_Utility.createConnection("dev");
 
 
 //            Run query "SELECT * FROM SPARTANS"

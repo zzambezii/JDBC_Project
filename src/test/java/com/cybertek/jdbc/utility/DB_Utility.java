@@ -30,6 +30,22 @@ public class DB_Utility {
 //         createConnection(connectionStr,username,password);
 
     }
+
+    public static void createConnection(String env){
+
+        System.out.println("You are in "+env+" environment");
+        String connectionStr = ConfigurationReader.getProperty(env+".database.url");
+        String username = ConfigurationReader.getProperty(env+".database.username");
+        String password = ConfigurationReader.getProperty(env+".database.password");
+
+        createConnection(connectionStr,username,password);
+
+    }
+
+
+
+
+
     /**
      *  Overload createConnection method to accept url, username, password
      *     * so we can provide those information for different database
