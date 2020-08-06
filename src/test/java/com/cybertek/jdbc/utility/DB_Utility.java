@@ -285,7 +285,7 @@ public class DB_Utility {
      */
     public static Map<String,String> getRowMap( int rowNum ){
 
-        Map<String,String> rowMap = new HashMap<>();
+        Map<String,String> rowMap =  new LinkedHashMap<>() ; //new HashMap<>();
         try{
 
             rs.absolute(rowNum);
