@@ -16,9 +16,9 @@ public class DB_Utility {
      * */
     public static void createConnection() {
 
-        String connectionStr = "jdbc:oracle:thin:@52.71.242.164:1521:XE";
-        String username = "hr";
-        String password = "hr";
+        String connectionStr = ConfigurationReader.getProperty("database.url");
+        String username = ConfigurationReader.getProperty("database.username");
+        String password = ConfigurationReader.getProperty("database.password");
 
         try {
             conn = DriverManager.getConnection(connectionStr, username, password);
@@ -27,10 +27,9 @@ public class DB_Utility {
             System.out.println("CONNECTION HAS FAILED!");
             e.printStackTrace();
         }
+//         createConnection(connectionStr,username,password);
 
     }
-
-
     /**
      *  Overload createConnection method to accept url, username, password
      *     * so we can provide those information for different database
@@ -41,9 +40,8 @@ public class DB_Utility {
     public static void createConnection(String url, String username, String password){
 
             try{
-
                 conn = DriverManager.getConnection(url,username,password) ;
-
+                System.out.println("CONNECTION SUCCESSFUL");
             }catch(SQLException e){
                 System.out.println("ERROR WHILE CONNECTING WITH PARAMETERS");
             }
