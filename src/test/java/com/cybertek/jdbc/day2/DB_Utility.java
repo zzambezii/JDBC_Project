@@ -77,6 +77,50 @@ public class DB_Utility {
 
 
     /**
+     * Get the row count of the resultSet
+     * @return the row number of the resultset given
+     */
+    public static int getRowCount(){
+
+        int rowCount = 0 ;
+
+        try {
+            rs.last(); // move to last row
+            rowCount = rs.getRow(); // get the row number and assign it to rowCount
+            // moving back the cursor to before first location just in case
+            rs.beforeFirst();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR WHILE GETTING ROW COUNT");
+        }
+        return rowCount ;
+    }
+
+    /*
+     * a method to get the column count of the current ResultSet
+     *
+     *   getColumnCNT()
+     *
+     * */
+    public static int getColumnCNT() {
+
+        int colCount = 0;
+
+        try {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            colCount = rsmd.getColumnCount();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE COUNTING THE COLUMNS");
+            e.printStackTrace();
+        }
+
+        return colCount;
+    }
+
+
+    /**
      *
      * @param columnIndex the column you want to get a list out of
      * @return List of String that contains entire column data from 1st row to last row
@@ -131,48 +175,6 @@ public class DB_Utility {
     }
 
 
-    /**
-     * We want to store certian row data as a map
-     * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
-     */
-    public static Map<String,String> getRowMap( int rowNum ){
-
-        Map<String,String> rowMap = new HashMap<>();
-        try{
-
-            rs.absolute(rowNum);
-
-            ResultSetMetaData rsmd = rs.getMetaData();
-            for (int colNum = 1; colNum <= getColumnCNT() ; colNum++) {
-                String colName = rsmd.getColumnName( colNum );
-                String colValue= rs.getString( colNum ) ;
-                rowMap.put(colName, colValue);
-            }
-            rs.beforeFirst();
-
-        }catch (SQLException e){
-            System.out.println("ERRROR AT ROW MAP FUNCTION");
-        }
-
-        return rowMap;
-    }
-
-    /**
-     *
-     * @return The entire resultset as List of Row Map
-     */
-    public static List<Map<String,String> > getAllDataAsListOfMap(){
-
-        List<Map<String,String> > rowMapList = new ArrayList<>();
-        for (int i = 1; i <= getRowCount(); i++) {
-            rowMapList.add(   getRowMap(i)    ) ;
-        }
-        return rowMapList ;
-
-    }
-
-
-
     /*
     * Getting single column cell value at certain row
     * row 2 column 3  -->> the data
@@ -225,48 +227,6 @@ public class DB_Utility {
         return result ;
     }
 
-    /**
-     * Get the row count of the resultSet
-     * @return the row number of the resultset given
-     */
-    public static int getRowCount(){
-
-        int rowCount = 0 ;
-
-        try {
-            rs.last(); // move to last row
-            rowCount = rs.getRow(); // get the row number and assign it to rowCount
-            // moving back the cursor to before first location just in case
-            rs.beforeFirst();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("ERROR WHILE GETTING ROW COUNT");
-        }
-        return rowCount ;
-    }
-
-    /*
-     * a method to get the column count of the current ResultSet
-     *
-     *   getColumnCNT()
-     *
-     * */
-    public static int getColumnCNT() {
-
-        int colCount = 0;
-
-        try {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            colCount = rsmd.getColumnCount();
-
-        } catch (SQLException e) {
-            System.out.println("ERROR WHILE COUNTING THE COLUMNS");
-            e.printStackTrace();
-        }
-
-        return colCount;
-    }
 
 
     // getting the entire row as List<String>
@@ -297,6 +257,46 @@ public class DB_Utility {
         return rowDataList;
     }
 
+
+    /**
+     * We want to store certian row data as a map
+     * give me number 3 row  --->> Map<String,String>   {region_id : 3 , region_name : Asia}
+     */
+    public static Map<String,String> getRowMap( int rowNum ){
+
+        Map<String,String> rowMap = new HashMap<>();
+        try{
+
+            rs.absolute(rowNum);
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            for (int colNum = 1; colNum <= getColumnCNT() ; colNum++) {
+                String colName = rsmd.getColumnName( colNum );
+                String colValue= rs.getString( colNum ) ;
+                rowMap.put(colName, colValue);
+            }
+            rs.beforeFirst();
+
+        }catch (SQLException e){
+            System.out.println("ERRROR AT ROW MAP FUNCTION");
+        }
+
+        return rowMap;
+    }
+
+    /**
+     *
+     * @return The entire resultset as List of Row Map
+     */
+    public static List<Map<String,String> > getAllDataAsListOfMap(){
+
+        List<Map<String,String> > rowMapList = new ArrayList<>();
+        for (int i = 1; i <= getRowCount(); i++) {
+            rowMapList.add(   getRowMap(i)    ) ;
+        }
+        return rowMapList ;
+
+    }
 
 
 
