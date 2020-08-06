@@ -34,12 +34,31 @@ public class SpartanDB_Practice {
 ////            6, Print out Name column data as a list
 //        System.out.println("NAME COLUMN as a list \n"
 //                                    + DB_Utility.getColumnDataAsList("NAME") ) ;
-////            7, Print out 4th row as a Map
-        System.out.println("4TH ROW AS A MAP \n"
-                                    + DB_Utility.getRowMap(4)  );
-//            8, Print out the data at row 5, column 1
-//            9, Print out the data at row 53, phone column
-//            10. Print out all the data as List of Map
+//////            7, Print out 4th row as a Map
+//        System.out.println("4TH ROW AS A MAP \n"
+//                                    + DB_Utility.getRowMap(4)  );
+////            8, Print out the data at row 5, column 1
+//        System.out.println("DATA at row 5 column 1 : --->>>  "
+//                                    +  DB_Utility.getColumnDataAtRow(5,1));
+////            9, Print out the data at row 53, phone column
+//        System.out.println("DATA at row 53 Phone column  : --->>>  "
+//                +  DB_Utility.getColumnDataAtRow(53,"PHONE") );
+////            10. Print out all the data as List of Map
+        System.out.println( DB_Utility.getAllDataAsListOfMap() );
+
+        // WE Are storing each row as map object
+        // and we have 100 row ,  so can store this 100 map object into one Collection
+        // --->>  List of these Map object  List< Map<String,String>  >
+
+
+//        System.out.println("4TH ROW AS A MAP \n"
+//                + DB_Utility.getRowMap(4)  );
+//        System.out.println("5TH ROW AS A MAP \n"
+//                + DB_Utility.getRowMap(5)  );
+
+
+
+
 
 
 

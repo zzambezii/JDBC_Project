@@ -310,8 +310,15 @@ public class DB_Utility {
      * @return The entire resultset as List of Row Map
      */
     public static List<Map<String,String> > getAllDataAsListOfMap(){
+        // each row is represented as a map
+        // and we want to get List of each row data as map
+        // so the data type of my List is Map -->> since map has key and value data type
+        // it becomes List< Map<String,String> >
 
-        List<Map<String,String> > rowMapList = new ArrayList<>();
+        List< Map<String,String> > rowMapList = new ArrayList<>();
+        // we can get one rowMap using getRowMap(i) methods
+        // so we can iterate over each row and get Map object and put it into the List
+
         for (int i = 1; i <= getRowCount(); i++) {
             rowMapList.add(   getRowMap(i)    ) ;
         }
