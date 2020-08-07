@@ -63,7 +63,7 @@ public class DB_Utility {
                 conn = DriverManager.getConnection(url,username,password) ;
                 System.out.println("CONNECTION SUCCESSFUL");
             }catch(SQLException e){
-                System.out.println("ERROR WHILE CONNECTING WITH PARAMETERS");
+                System.out.println("ERROR WHILE CONNECTING WITH PARAMETERS " + e.getMessage());
             }
 
 
